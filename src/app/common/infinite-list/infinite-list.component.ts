@@ -10,12 +10,11 @@ export class InfiniteListComponent implements OnInit {
   private observer: IntersectionObserver;
   imageArray = Array.from({length: 100}).map(x => `../../../assets/img/img${Math.floor(Math.random() * 3) + 1}.jpg`);
 
-  constructor(private host: ElementRef) { }
+  constructor() { }
 
   ngOnInit() {
     const options = {
-      // root: this.isHostScrollable(this.host.nativeElement) ? this.host.nativeElement : null,
-      rootMargin: '0px 0px -50px 0px',
+      rootMargin: '-65px 0px 50px 0px',
       threshold: 0
     };
 
@@ -29,13 +28,6 @@ export class InfiniteListComponent implements OnInit {
         }
       });
     }, options);
-  }
-
-  private isHostScrollable(el) {
-    const style = window.getComputedStyle(el);
-    console.log(style.getPropertyValue('overflow'));
-    return style.getPropertyValue('overflow') === 'auto' ||
-      style.getPropertyValue('overflow-y') === 'scroll';
   }
 
   private preloadImage(img) {

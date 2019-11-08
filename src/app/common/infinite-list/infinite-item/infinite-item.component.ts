@@ -14,7 +14,6 @@ export class InfiniteItemComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    console.log(this.image);
     this.observable.observe(this.image.nativeElement);
   }
 
