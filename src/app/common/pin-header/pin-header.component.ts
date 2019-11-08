@@ -7,14 +7,22 @@ import {AuthenticationService} from '../../services/authentication.service';
   styleUrls: ['./pin-header.component.scss']
 })
 export class PinHeaderComponent implements OnInit {
-  isAuthenticated = false;
+  isAuthenticated;
 
   constructor(
     private authService: AuthenticationService,
   ) {}
 
   ngOnInit() {
-    this.isAuthenticated = this.authService.getAuthentication();
+    this.authService.isAuthenticated.subscribe(isAuth => this.isAuthenticated = isAuth);
+  }
+
+  signIn() {
+    return this.authService.authenticate();
+  }
+
+  signOut() {
+    return this.authService.signOut();
   }
 
 }
