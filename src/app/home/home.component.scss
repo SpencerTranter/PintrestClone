@@ -1,0 +1,11 @@
+app-pin-header {
+  position: fixed;
+}
+
+.appBody {
+  padding-top: 65px;
+
+  app-infinite-list {
+    overflow: auto; //put in host
+  }
+}

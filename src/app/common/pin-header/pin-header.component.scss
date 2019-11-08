@@ -1,0 +1,14 @@
+mat-toolbar {
+  width: 100vw;
+  background-color: white;
+  border-bottom: black;
+  z-index:1000;
+  display: flex;
+  justify-content: space-between;
+
+  .header-text {
+    font-size: 16px;
+    font-weight: 700;
+    color: #333;
+  }
+}

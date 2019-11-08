@@ -7,8 +7,34 @@
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </head>
 <body>
+  <!-- The core Firebase JS SDK is always required and must be listed first -->
+  <script src="https://www.gstatic.com/firebasejs/7.2.3/firebase-app.js"></script>
+
+  <!-- TODO: Add SDKs for Firebase products that you want to use
+       https://firebase.google.com/docs/web/setup#available-libraries -->
+  <script src="https://www.gstatic.com/firebasejs/7.2.3/firebase-analytics.js"></script>
+
+  <script>
+    // Your web app's Firebase configuration
+    var firebaseConfig = {
+      apiKey: "AIzaSyAdkKy44KxL20mvXp6xJnx6zcaE4p4SFMQ",
+      authDomain: "pinterestclone-34d22.firebaseapp.com",
+      databaseURL: "https://pinterestclone-34d22.firebaseio.com",
+      projectId: "pinterestclone-34d22",
+      storageBucket: "pinterestclone-34d22.appspot.com",
+      messagingSenderId: "702745658946",
+      appId: "1:702745658946:web:039d0f18fb0420bca24fdb",
+      measurementId: "G-VLQK77W94Y"
+    };
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+    firebase.analytics();
+  </script>
+
   <app-root></app-root>
 </body>
 </html>

@@ -1,0 +1,12 @@
+app-pin-header {
+  position: fixed;
+}
+
+.appBody {
+  padding-top: 65px;
+}
+.appBody app-infinite-list {
+  overflow: auto;
+}
+
+/*# sourceMappingURL=home.component.css.map */
