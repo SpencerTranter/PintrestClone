@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { Store } from '@ngrx/store';
 import {AuthenticationService} from '../../services/authentication.service';
+import { selectUser } from '../../store/selectors/user.selectors';
+import * as fromUser from '../../store/reducers/user.reducer';
 
 @Component({
   selector: 'app-pin-header',
@@ -7,14 +10,17 @@ import {AuthenticationService} from '../../services/authentication.service';
   styleUrls: ['./pin-header.component.scss']
 })
 export class PinHeaderComponent implements OnInit {
-  isAuthenticated;
+  user: any;
 
   constructor(
     private authService: AuthenticationService,
+    private store: Store<fromUser.UserState>
   ) {}
 
   ngOnInit() {
-    this.authService.isAuthenticated.subscribe(isAuth => this.isAuthenticated = isAuth);
+    this.store.select(selectUser).subscribe((user) => {
+      this.user = user;
+    });
   }
 
   signIn() {
@@ -23,6 +29,10 @@ export class PinHeaderComponent implements OnInit {
 
   signOut() {
     return this.authService.signOut();
+  }
+
+  isAuthenticated() {
+    return this.user !== null;
   }
 
 }

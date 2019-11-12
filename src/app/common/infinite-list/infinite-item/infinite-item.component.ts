@@ -1,5 +1,6 @@
 import {Component, Input, OnInit, ViewChild} from '@angular/core';
 import {Observable} from 'rxjs';
+import { OverlayService } from '../../../services/overlay.service';
 
 @Component({
   selector: 'app-infinite-item',
@@ -11,10 +12,16 @@ export class InfiniteItemComponent implements OnInit {
   @Input() observable: IntersectionObserver;
   @ViewChild('img', null) image;
 
-  constructor() { }
+  constructor(
+    private overlayService: OverlayService
+  ) { }
 
   ngOnInit() {
     this.observable.observe(this.image.nativeElement);
+  }
+
+  openOverlay() {
+    this.overlayService.open();
   }
 
 }

@@ -7,11 +7,19 @@ import { HomeComponent } from './home/home.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
-import {MatIconModule, MatIconRegistry} from '@angular/material/icon';
-import {HttpClientModule} from '@angular/common/http';
+import { MatIconModule, MatIconRegistry } from '@angular/material/icon';
+import { HttpClientModule } from '@angular/common/http';
 import { PinHeaderComponent } from './common/pin-header/pin-header.component';
 import { InfiniteListComponent } from './common/infinite-list/infinite-list.component';
 import { InfiniteItemComponent } from './common/infinite-list/infinite-item/infinite-item.component';
+import { OverlayComponent } from './common/overlay/overlay.component';
+import { OverlayModule } from '@angular/cdk/overlay';
+import { StoreModule } from '@ngrx/store';
+import {reducers, metaReducers} from './store/reducers';
+import {UserEffects} from './store/effects/user.effect';
+import {EffectsModule} from '@ngrx/effects';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+
 
 @NgModule({
   declarations: [
@@ -19,7 +27,8 @@ import { InfiniteItemComponent } from './common/infinite-list/infinite-item/infi
     HomeComponent,
     PinHeaderComponent,
     InfiniteListComponent,
-    InfiniteItemComponent
+    InfiniteItemComponent,
+    OverlayComponent,
   ],
   imports: [
     BrowserModule,
@@ -29,9 +38,22 @@ import { InfiniteItemComponent } from './common/infinite-list/infinite-item/infi
     MatButtonModule,
     MatIconModule,
     HttpClientModule,
+    OverlayModule,
+    StoreModule.forRoot(reducers, {
+      metaReducers,
+      runtimeChecks: {
+        strictStateImmutability: true,
+        strictActionImmutability: true
+      }
+    }),
+    EffectsModule.forRoot([UserEffects]),
+    StoreDevtoolsModule.instrument({maxAge: 10})
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [
+    OverlayComponent
+  ]
 })
 export class AppModule {
   constructor(

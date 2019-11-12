@@ -2,8 +2,9 @@
   <button mat-icon-button>
     <mat-icon svgIcon="pinterest" color=""></mat-icon>
   </button>
+  <span *ngIf="isAuthenticated()">Welcome {{this.user.name}}</span>
   <button mat-button>
-    <span class='header-text' (click)="signIn()" *ngIf="!isAuthenticated">Sign In</span>
-    <span class='header-text' (click)="signOut()" *ngIf="isAuthenticated">Sign Out</span>
+    <span class='header-text' (click)="signIn()" *ngIf="!isAuthenticated()">Sign In</span>
+    <span class='header-text' (click)="signOut()" *ngIf="isAuthenticated()">Sign Out</span>
   </button>
 </mat-toolbar>

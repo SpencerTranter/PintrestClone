@@ -1,0 +1,20 @@
+{
+  "/api/*": {
+    "target": "http://api.github.com/",
+    "secure": false,
+    "logLevel": "debug",
+    "changeOrigin": true,
+    "pathRewrite": {
+      "^/api": ""
+    }
+  },
+  "/git/*": {
+    "target": "https://github.com/",
+    "secure": false,
+    "logLevel": "debug",
+    "changeOrigin": true,
+    "pathRewrite": {
+      "^/git": ""
+    }
+  }
+}
