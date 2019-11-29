@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {HttpClient} from '@angular/common/http';
 import {ActivatedRoute, Router} from '@angular/router';
-import {BehaviorSubject} from 'rxjs';
 import {GetToken, GetUserSuccess} from '../store/actions/user.action';
 import {Store} from '@ngrx/store';
 import * as fromUser from '../store/reducers/user.reducer';

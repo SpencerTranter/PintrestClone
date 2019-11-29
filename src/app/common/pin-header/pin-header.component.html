@@ -2,9 +2,19 @@
   <button mat-icon-button>
     <mat-icon svgIcon="pinterest" color=""></mat-icon>
   </button>
-  <span *ngIf="isAuthenticated()">Welcome {{this.user.name}}</span>
-  <button mat-button>
-    <span class='header-text' (click)="signIn()" *ngIf="!isAuthenticated()">Sign In</span>
-    <span class='header-text' (click)="signOut()" *ngIf="isAuthenticated()">Sign Out</span>
-  </button>
+  <div class="right">
+    <button mat-button class="header-text" (click)="navigate('')">
+      <span>Home</span>
+    </button>
+    <button mat-button class="avatar-button" *ngIf="isAuthenticated()" (click)="navigate('/profile')">
+      <img src="{{this.user['avatar_url']}}">
+      <span class='header-text username'>{{getUserFirstName()}}</span>
+    </button>
+    <div class="spacer"></div>
+    <button mat-button>
+      <span class='header-text menu' (click)="signIn()" *ngIf="!isAuthenticated()">Sign In</span>
+      <span class='header-text menu' (click)="signOut()" *ngIf="isAuthenticated()">Sign Out</span>
+    </button>
+  </div>
 </mat-toolbar>
+

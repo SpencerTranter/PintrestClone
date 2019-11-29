@@ -3,6 +3,7 @@ import { Store } from '@ngrx/store';
 import {AuthenticationService} from '../../services/authentication.service';
 import { selectUser } from '../../store/selectors/user.selectors';
 import * as fromUser from '../../store/reducers/user.reducer';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-pin-header',
@@ -14,13 +15,18 @@ export class PinHeaderComponent implements OnInit {
 
   constructor(
     private authService: AuthenticationService,
-    private store: Store<fromUser.UserState>
+    private store: Store<fromUser.UserState>,
+    private router: Router
   ) {}
 
   ngOnInit() {
     this.store.select(selectUser).subscribe((user) => {
       this.user = user;
     });
+  }
+
+  navigate(path) {
+    this.router.navigate([path]);
   }
 
   signIn() {
@@ -33,6 +39,10 @@ export class PinHeaderComponent implements OnInit {
 
   isAuthenticated() {
     return this.user !== null;
+  }
+
+  getUserFirstName() {
+    return this.user.name.split(' ')[0];
   }
 
 }

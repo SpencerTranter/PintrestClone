@@ -19,6 +19,7 @@ import {reducers, metaReducers} from './store/reducers';
 import {UserEffects} from './store/effects/user.effect';
 import {EffectsModule} from '@ngrx/effects';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { ProfileComponent } from './profile/profile.component';
 
 
 @NgModule({
@@ -29,6 +30,7 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
     InfiniteListComponent,
     InfiniteItemComponent,
     OverlayComponent,
+    ProfileComponent,
   ],
   imports: [
     BrowserModule,

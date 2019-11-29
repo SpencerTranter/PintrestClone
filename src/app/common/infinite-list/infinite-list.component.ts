@@ -1,4 +1,5 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
+import imgConfig from '../../../assets/img/heights.js';
 
 @Component({
   selector: 'app-infinite-list',
@@ -8,7 +9,7 @@ import {Component, OnInit} from '@angular/core';
 export class InfiniteListComponent implements OnInit {
 
   private observer: IntersectionObserver;
-  imageArray = Array.from({length: 100}).map(x => `../../../assets/img/img${Math.floor(Math.random() * 3) + 1}.jpg`);
+  @Input() images: Array<any>;
 
   constructor() { }
 

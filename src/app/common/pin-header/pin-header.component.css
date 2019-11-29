@@ -1,14 +1,39 @@
 mat-toolbar {
-  width: 100vw;
+  width: 100%;
   background-color: white;
   border-bottom: 0.5px solid #efefef;
   display: flex;
   justify-content: space-between;
+  align-items: center;
+  padding: 4px 12px 4px 12px;
 }
 mat-toolbar .header-text {
-  font-size: 16px;
   font-weight: 700;
+  font-size: 16px;
   color: #333;
+}
+mat-toolbar .right {
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+}
+mat-toolbar .right button[mat-button] {
+  border-radius: 20px;
+}
+mat-toolbar .right .avatar-button img {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+}
+mat-toolbar .right .avatar-button .username {
+  color: #8E8E8E;
+  padding: 0 8px 0 8px;
+}
+mat-toolbar .right .spacer {
+  height: 30px;
+  width: 15px;
+  border-left: 2px solid #efefef;
+  margin-left: 16px;
 }
 
 /*# sourceMappingURL=pin-header.component.css.map */

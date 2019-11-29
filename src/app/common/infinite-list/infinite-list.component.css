@@ -1,8 +1,52 @@
-.infinite-containter {
-  overflow: auto;
+.infinite-container {
+  margin: 1.5em auto;
+  column-gap: 0;
+}
+
+/* Masonry grid on extra-large screens */
+@media only screen and (min-width: 1276px) {
+  .infinite-container {
+    column-count: 5;
+    max-width: 1260px;
+  }
+}
+/* Masonry grid on large screens */
+@media only screen and (max-width: 1275px) and (min-width: 1024px) {
+  .infinite-container {
+    column-count: 4;
+    max-width: 1008px;
+  }
+}
+/* Masonry grid on medium-sized screens */
+@media only screen and (max-width: 1023px) and (min-width: 768px) {
+  .infinite-container {
+    column-count: 3;
+    max-width: 756px;
+  }
+}
+/* Masonry grid on small screens */
+@media only screen and (max-width: 767px) and (min-width: 540px) {
+  .infinite-container {
+    column-count: 2;
+    max-width: 504px;
+  }
+}
+/* Masonry grid on extra-small screens */
+@media only screen and (max-width: 539px) {
+  .infinite-container {
+    column-count: 1;
+    max-width: 252px;
+  }
+}
+.text {
   display: flex;
   justify-content: center;
-  flex-wrap: wrap;
+}
+.text .emptyMessage {
+  margin-top: 2em;
+  font-weight: 700;
+  font-size: 1.5em;
+  color: #333;
 }
 
 /*# sourceMappingURL=infinite-list.component.css.map */

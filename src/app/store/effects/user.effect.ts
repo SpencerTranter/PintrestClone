@@ -3,13 +3,15 @@ import { Actions, ofType, Effect } from '@ngrx/effects';
 import {GetTokenSuccess, UserTypes, GetToken, GetTokenError, GetUser, GetUserSuccess} from '../actions/user.action';
 import {AuthenticationService} from '../../services/authentication.service';
 import {map, switchMap, catchError, concatMap} from 'rxjs/operators';
+import {Router} from '@angular/router';
 
 @Injectable()
 export class UserEffects {
 
   constructor(
     private actions: Actions,
-    private authService: AuthenticationService
+    private authService: AuthenticationService,
+    private router: Router
   ) {}
 
   @Effect() getTokenEffect = this.actions.pipe(
@@ -32,9 +34,10 @@ export class UserEffects {
     switchMap(({payload}) => {
       return this.authService.getUserInformation(payload).pipe(
         concatMap((res) => {
+          this.router.navigate(['/profile']);
           return [
-          new GetUserSuccess(res),
-        ];
+            new GetUserSuccess(res),
+          ];
         })
       );
     })

@@ -9,8 +9,9 @@
 .appBody {
   padding-top: 65px;
   width: 100%;
-
-  app-infinite-list {
-    overflow: auto; //put in host
-  }
 }
+.appBody app-infinite-list {
+  overflow: auto;
+}
+
+/*# sourceMappingURL=profile.component.css.map */

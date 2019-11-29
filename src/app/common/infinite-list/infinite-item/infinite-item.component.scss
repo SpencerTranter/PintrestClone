@@ -1,9 +1,11 @@
 .infinite-item{
-  padding: 20px 7px 20px 7px;
+  width: 236px;
+  padding: 0 0.5em;
+  margin: 0 0 1em 0;
 
   .infinite-img{
-    border-radius: 16px;
+    border-radius: 1em;
     width: 236px;
-    height: 236px;
+    max-height: 450px;
   }
 }

@@ -1,9 +1,14 @@
-app-pin-header {
+.fixed-header {
   position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 2;
+  width: 100% !important;
 }
 
 .appBody {
   padding-top: 65px;
+  width: 100%;
 }
 .appBody app-infinite-list {
   overflow: auto;
