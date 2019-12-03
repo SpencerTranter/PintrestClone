@@ -12,7 +12,6 @@ import { HttpClientModule } from '@angular/common/http';
 import { PinHeaderComponent } from './common/pin-header/pin-header.component';
 import { InfiniteListComponent } from './common/infinite-list/infinite-list.component';
 import { InfiniteItemComponent } from './common/infinite-list/infinite-item/infinite-item.component';
-import { OverlayComponent } from './common/overlay/overlay.component';
 import { OverlayModule } from '@angular/cdk/overlay';
 import { StoreModule } from '@ngrx/store';
 import {reducers, metaReducers} from './store/reducers';
@@ -20,6 +19,7 @@ import {UserEffects} from './store/effects/user.effect';
 import {EffectsModule} from '@ngrx/effects';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { ProfileComponent } from './profile/profile.component';
+import { FilePreviewOverlayComponent } from './common/overlay/file-preview-overlay/file-preview-overlay.component';
 
 
 @NgModule({
@@ -29,8 +29,8 @@ import { ProfileComponent } from './profile/profile.component';
     PinHeaderComponent,
     InfiniteListComponent,
     InfiniteItemComponent,
-    OverlayComponent,
     ProfileComponent,
+    FilePreviewOverlayComponent,
   ],
   imports: [
     BrowserModule,
@@ -54,7 +54,7 @@ import { ProfileComponent } from './profile/profile.component';
   providers: [],
   bootstrap: [AppComponent],
   entryComponents: [
-    OverlayComponent
+    FilePreviewOverlayComponent
   ]
 })
 export class AppModule {

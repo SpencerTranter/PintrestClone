@@ -7,6 +7,10 @@ const routes: Routes = [
   {path: '', redirectTo: 'home', pathMatch: 'full'},
   { path: 'home', component: HomeComponent },
   { path: 'profile', component: ProfileComponent },
+  // {
+  //   path: ':recipeId',
+  //   loadChildren: './recipes/recipe-detail/recipe-detail.module#RecipeDetailPageModule'
+  // }
 ];
 
 @NgModule({

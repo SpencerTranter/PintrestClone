@@ -1,8 +1,7 @@
 <div class="infinite-container" *ngIf="images.length !== 0">
   <app-infinite-item *ngFor="let img of images"
-                     [src]="img.src"
-                     [observable]="observer"
-                     [height]="img.height">
+                     [imgConfig]="img"
+                     [observable]="observer">
   </app-infinite-item>
 </div>
 <div class="text" *ngIf="images.length === 0">

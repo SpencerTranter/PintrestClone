@@ -1,4 +1,5 @@
 .infinite-item {
+  position: relative;
   width: 236px;
   padding: 0 0.5em;
   margin: 0 0 1em 0;
@@ -7,6 +8,10 @@
   border-radius: 1em;
   width: 236px;
   max-height: 450px;
+}
+
+.menu {
+  opacity: 0.5;
 }
 
 /*# sourceMappingURL=infinite-item.component.css.map */

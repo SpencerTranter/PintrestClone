@@ -1,3 +1,9 @@
-<div class="infinite-item" (click)="openOverlay()">
-  <img class="infinite-img" #img [attr.data-src]=src [style.height.px]="height">
+<div class="infinite-item">
+  <img class="infinite-img" #img
+       [attr.data-src]="imgConfig.src"
+       [style.height.px]="imgConfig.height"
+       (mouseover)="over($event)"
+       (mouseleave)="out($event)"
+       (click)="openOverlay($event)"
+  >
 </div>
