@@ -49,6 +49,7 @@ export class AuthenticationService {
   }
 
   getUserInformation(token) {
+    console.log('token', token);
     return this.http.get(
       '/api/user',
       {

@@ -19,10 +19,12 @@ export class InfiniteItemComponent implements OnInit {
   ngOnInit() {
     this.observable.observe(this.image.nativeElement);
     this.image.nativeElement.onload = () => {
-      this.imgConfig.baseSize = {
-        height: this.image.nativeElement.naturalHeight,
-        width: this.image.nativeElement.naturalWidth
-      };
+      if (!this.imgConfig.baseSize) {
+        this.imgConfig.baseSize = {
+          height: this.image.nativeElement.naturalHeight,
+          width: this.image.nativeElement.naturalWidth
+        };
+      }
     };
   }
 

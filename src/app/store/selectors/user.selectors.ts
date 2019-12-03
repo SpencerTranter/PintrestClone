@@ -7,3 +7,8 @@ export const selectUser = createSelector(
   selectFeature,
   (state: UserState) => state.authenticatedUser
 );
+
+export const getUserImages = createSelector(
+  selectFeature,
+  (state: UserState) => state.images
+);

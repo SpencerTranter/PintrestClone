@@ -20,7 +20,7 @@ export class OverlayService {
     const overlayRef = this.overlay.create({
       hasBackdrop: true,
       width: `${width}px`,
-      height: `${height}px`,
+      height: `${height + 50}px`,
       scrollStrategy: this.overlay.scrollStrategies.block(),
       positionStrategy: this.overlay.position().global().centerHorizontally().centerVertically()
     });

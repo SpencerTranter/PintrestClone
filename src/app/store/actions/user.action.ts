@@ -10,6 +10,8 @@ export const UserTypes = {
   GET_USER_SUCCESS: `${ACTIONS_NAMESPACE}GET_USER_SUCCESS`,
   GET_USER_ERROR: `${ACTIONS_NAMESPACE}GET_USER_ERROR`,
   GET_IMAGES: `${ACTIONS_NAMESPACE}GET_IMAGES`,
+  ADD_USER_IMAGE: `${ACTIONS_NAMESPACE}ADD_USER_IMAGE`,
+  DELETE_USER_IMAGE: `${ACTIONS_NAMESPACE}DELETE_USER_IMAGE`,
 };
 
 export class GetToken implements Action {
@@ -47,6 +49,16 @@ export class GetImages implements Action {
   constructor(public payload: any) {}
 }
 
+export class AddUserImage implements Action {
+  public readonly type = UserTypes.ADD_USER_IMAGE;
+  constructor(public payload: any) {}
+}
+
+export class DeleteUserImage implements Action {
+  public readonly type = UserTypes.DELETE_USER_IMAGE;
+  constructor(public payload: any) {}
+}
+
 export type UserActions =
 | GetToken
 | GetTokenSuccess
@@ -54,4 +66,6 @@ export type UserActions =
 | GetUser
 | GetUserSuccess
 | GetUserError
-| GetImages;
+| GetImages
+| AddUserImage
+| DeleteUserImage;

@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import {getUserImages} from '../store/selectors/user.selectors';
+import {Store} from '@ngrx/store';
+import * as fromUser from '../store/reducers/user.reducer';
 
 @Component({
   selector: 'app-profile',
@@ -6,10 +9,15 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./profile.component.scss']
 })
 export class ProfileComponent implements OnInit {
-  imageArray = [];
-  constructor() { }
+  images = [];
+  constructor(
+    private store: Store<fromUser.UserState>,
+  ) { }
 
   ngOnInit() {
+    this.store.select(getUserImages).subscribe((images) => {
+      this.images = images;
+    });
   }
 
 }
