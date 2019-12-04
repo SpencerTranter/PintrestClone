@@ -1,15 +1,18 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {ActivatedRoute, Router} from '@angular/router';
-import {GetToken, GetUserSuccess} from '../store/actions/user.action';
+import {GetToken, GetUserSuccess} from '../../store/actions/user.action';
 import {Store} from '@ngrx/store';
-import * as fromUser from '../store/reducers/user.reducer';
+import * as fromUser from '../../store/reducers/user.reducer';
+import {getIsLoggedIn} from '../../store/selectors/user.selectors';
 
 @Injectable({
   providedIn: 'root'
 })
 
 export class AuthenticationService {
+
+  _isLoggedIn = false;
 
   constructor(
     private http: HttpClient,
@@ -23,6 +26,9 @@ export class AuthenticationService {
         this.removeCode();
       }
     });
+    this.store.select(getIsLoggedIn).subscribe((isLoggedIn) => {
+      this._isLoggedIn = isLoggedIn;
+    });
   }
 
   public authenticate() {
@@ -30,7 +36,6 @@ export class AuthenticationService {
   }
 
   getAccessToken(code) {
-    console.log('code', code);
     return this.http.post(
       '/git/login/oauth/access_token',
       {
@@ -49,7 +54,6 @@ export class AuthenticationService {
   }
 
   getUserInformation(token) {
-    console.log('token', token);
     return this.http.get(
       '/api/user',
       {
@@ -82,5 +86,10 @@ export class AuthenticationService {
 
   public signOut() {
     this.store.dispatch(new GetUserSuccess(null));
+    this.router.navigate(['/home']);
+  }
+
+  public isLoggedIn() {
+    return this._isLoggedIn;
   }
 }

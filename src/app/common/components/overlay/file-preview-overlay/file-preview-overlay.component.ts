@@ -1,9 +1,9 @@
-import {Component, Inject} from '@angular/core';
+import {Component, HostListener, Inject} from '@angular/core';
 import {IMAGE_DATA} from './file-preview-overlay.tokens';
-import {OverlayRef} from '@angular/cdk/overlay';
+import { CustomOverlayRef } from '../custom-overlay-ref';
 import {Store} from '@ngrx/store';
-import * as fromUser from '../../../store/reducers/user.reducer';
-import {AddUserImage} from '../../../store/actions/user.action';
+import * as fromUser from '../../../../store/reducers/user.reducer';
+import {AddUserImage} from '../../../../store/actions/user.action';
 
 @Component({
   selector: 'app-file-preview-overlay',
@@ -11,10 +11,16 @@ import {AddUserImage} from '../../../store/actions/user.action';
   styleUrls: ['./file-preview-overlay.component.scss']
 })
 export class FilePreviewOverlayComponent {
+  @HostListener('document:keydown', ['$event']) private handleKeydown(event: KeyboardEvent) {
+    if (event.code === 'Escape') {
+      this.dialogRef.close();
+    }
+  }
 
   constructor(
     @Inject(IMAGE_DATA) public image: any,
-    private store: Store<fromUser.UserState>
+    private store: Store<fromUser.UserState>,
+    public dialogRef: CustomOverlayRef,
   ) {}
 
   private saveImage() {
@@ -32,13 +38,4 @@ export class FilePreviewOverlayComponent {
     document.removeEventListener('copy', listener);
   }
 
-}
-
-export class FilePreviewOverlayRef {
-
-  constructor(private overlayRef: OverlayRef) { }
-
-  close(): void {
-    this.overlayRef.dispose();
-  }
 }

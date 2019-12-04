@@ -9,17 +9,19 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule, MatIconRegistry } from '@angular/material/icon';
 import { HttpClientModule } from '@angular/common/http';
-import { PinHeaderComponent } from './common/pin-header/pin-header.component';
-import { InfiniteListComponent } from './common/infinite-list/infinite-list.component';
-import { InfiniteItemComponent } from './common/infinite-list/infinite-item/infinite-item.component';
+import { PinHeaderComponent } from './common/components/pin-header/pin-header.component';
+import { InfiniteListComponent } from './common/components/infinite-list/infinite-list.component';
+import { InfiniteItemComponent } from './common/components/infinite-list/infinite-item/infinite-item.component';
 import { OverlayModule } from '@angular/cdk/overlay';
 import { StoreModule } from '@ngrx/store';
-import {reducers, metaReducers} from './store/reducers';
-import {UserEffects} from './store/effects/user.effect';
-import {EffectsModule} from '@ngrx/effects';
+import { reducers, metaReducers } from './store/reducers';
+import { UserEffects } from './store/effects/user.effect';
+import { EffectsModule } from '@ngrx/effects';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { ProfileComponent } from './profile/profile.component';
-import { FilePreviewOverlayComponent } from './common/overlay/file-preview-overlay/file-preview-overlay.component';
+import { FilePreviewOverlayComponent } from './common/components/overlay/file-preview-overlay/file-preview-overlay.component';
+import {LoginActivate} from './common/guards/login-activate.guard';
+import { SpinnerOverlayComponent } from './common/components/overlay/spinner-overlay/spinner-overlay.component';
 
 
 @NgModule({
@@ -31,6 +33,7 @@ import { FilePreviewOverlayComponent } from './common/overlay/file-preview-overl
     InfiniteItemComponent,
     ProfileComponent,
     FilePreviewOverlayComponent,
+    SpinnerOverlayComponent,
   ],
   imports: [
     BrowserModule,
@@ -51,7 +54,7 @@ import { FilePreviewOverlayComponent } from './common/overlay/file-preview-overl
     EffectsModule.forRoot([UserEffects]),
     StoreDevtoolsModule.instrument({maxAge: 10})
   ],
-  providers: [],
+  providers: [LoginActivate],
   bootstrap: [AppComponent],
   entryComponents: [
     FilePreviewOverlayComponent

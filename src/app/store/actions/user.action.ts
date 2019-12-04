@@ -4,7 +4,6 @@ const ACTIONS_NAMESPACE = 'USER_';
 
 export const UserTypes = {
   GET_TOKEN: `${ACTIONS_NAMESPACE}GET_TOKEN`,
-  GET_TOKEN_SUCCESS: `${ACTIONS_NAMESPACE}GET_TOKEN_SUCCESS`,
   GET_TOKEN_ERROR: `${ACTIONS_NAMESPACE}GET_TOKEN_ERROR`,
   GET_USER: `${ACTIONS_NAMESPACE}GET_USER`,
   GET_USER_SUCCESS: `${ACTIONS_NAMESPACE}GET_USER_SUCCESS`,
@@ -16,11 +15,6 @@ export const UserTypes = {
 
 export class GetToken implements Action {
   public readonly type = UserTypes.GET_TOKEN;
-  constructor(public payload: any) { }
-}
-
-export class GetTokenSuccess implements Action {
-  public readonly type = UserTypes.GET_TOKEN_SUCCESS;
   constructor(public payload: any) { }
 }
 
@@ -61,7 +55,6 @@ export class DeleteUserImage implements Action {
 
 export type UserActions =
 | GetToken
-| GetTokenSuccess
 | GetTokenError
 | GetUser
 | GetUserSuccess

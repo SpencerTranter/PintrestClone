@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import {AuthenticationService} from '../../services/authentication.service';
-import { selectUser } from '../../store/selectors/user.selectors';
-import * as fromUser from '../../store/reducers/user.reducer';
+import { selectUser } from '../../../store/selectors/user.selectors';
+import * as fromUser from '../../../store/reducers/user.reducer';
 import {Router} from '@angular/router';
 
 @Component({

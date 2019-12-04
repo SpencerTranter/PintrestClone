@@ -8,6 +8,11 @@ export const selectUser = createSelector(
   (state: UserState) => state.authenticatedUser
 );
 
+export const getIsLoggedIn = createSelector(
+  selectFeature,
+  (state: UserState) => state.isLoggedIn
+);
+
 export const getUserImages = createSelector(
   selectFeature,
   (state: UserState) => state.images

@@ -2,13 +2,13 @@ import {UserActions, UserTypes} from '../actions/user.action';
 
 export interface UserState {
   authenticatedUser: any;
-  authToken: string;
+  isLoggedIn: boolean;
   images: any;
 }
 
 export const initialState: UserState = {
   authenticatedUser: null,
-  authToken: '',
+  isLoggedIn: false,
   images: [],
 };
 
@@ -16,14 +16,12 @@ export function reducer(state: UserState = initialState, action: UserActions): U
   switch (action.type) {
     case UserTypes.GET_TOKEN:
       return Object.assign({}, state, {});
-    case UserTypes.GET_TOKEN_SUCCESS:
-      return Object.assign({}, state, { authToken: action.payload });
     case UserTypes.GET_TOKEN_ERROR:
       return Object.assign({}, state, {});
     case UserTypes.GET_USER:
       return Object.assign({}, state, {});
     case UserTypes.GET_USER_SUCCESS:
-      return Object.assign({}, state, { authenticatedUser: action.payload });
+      return Object.assign({}, state, { authenticatedUser: action.payload, isLoggedIn: action.payload !== null });
     case UserTypes.ADD_USER_IMAGE:
       return Object.assign({}, state, { images: [...state.images, action.payload] });
     case UserTypes.DELETE_USER_IMAGE:

@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import imgConfig from '../../../assets/img/heights.js';
+import imgConfig from '../../../../assets/img/heights.js';
 
 @Component({
   selector: 'app-infinite-list',
