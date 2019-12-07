@@ -1,42 +1,38 @@
 import {Injectable} from '@angular/core';
 import { Actions, ofType, Effect } from '@ngrx/effects';
-import { UserTypes, GetToken, GetTokenError, GetUser, GetUserSuccess} from '../actions/user.action';
+import { UserTypes, GetToken } from '../actions/user.action';
 import {AuthenticationService} from '../../common/services/authentication.service';
-import { switchMap, concatMap} from 'rxjs/operators';
+import { tap } from 'rxjs/operators';
 import {Router} from '@angular/router';
+import {SPINNER_DATA} from '../../common/components/overlay/spinner-overlay/spinner-overlay.tokens';
+import {OverlayService} from '../../common/services/overlay.service';
+import {SpinnerOverlayComponent} from '../../common/components/overlay/spinner-overlay/spinner-overlay.component';
+import {CustomOverlayRef} from '../../common/components/overlay/custom-overlay-ref';
 
 @Injectable()
 export class UserEffects {
+  overlayRef: CustomOverlayRef;
 
   constructor(
     private actions: Actions,
     private authService: AuthenticationService,
-    private router: Router
+    private router: Router,
+    private overlayService: OverlayService
   ) {}
 
-  @Effect() getTokenEffect = this.actions.pipe(
+  @Effect({dispatch: false}) showSpinnerEffect = this.actions.pipe(
     ofType<GetToken>(UserTypes.GET_TOKEN),
-    switchMap(({payload}) => {
-      return this.authService.getAccessToken(payload).pipe(
-        concatMap((res) => this.authService.validateToken(res) ?
-            [new GetUser(this.authService.validateToken(res))] :
-            [new GetTokenError()]
-        ),
-      );
+    tap(() => {
+      this.overlayRef = this.overlayService.open({}, SPINNER_DATA, SpinnerOverlayComponent, false);
     })
   );
 
-  @Effect() getUserEffect = this.actions.pipe(
-    ofType<GetUser>(UserTypes.GET_USER),
-    switchMap(({payload}) => {
-      return this.authService.getUserInformation(payload).pipe(
-        concatMap((res) => {
-          this.router.navigate(['/profile']);
-          return [
-            new GetUserSuccess(res),
-          ];
-        })
-      );
+  @Effect({dispatch: false}) disableSpinnerEffect = this.actions.pipe(
+    ofType<GetToken>(UserTypes.GET_USER_SUCCESS),
+    tap(() => {
+      this.overlayRef.close();
+      this.router.navigate(['/profile']);
     })
   );
+
 }

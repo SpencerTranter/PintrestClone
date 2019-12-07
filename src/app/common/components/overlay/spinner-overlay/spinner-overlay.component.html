@@ -1,1 +1,9 @@
-<p>spinner-overlay works!</p>
+<div class="overlay-content"
+     [@slideContent]="animationState"
+     (@slideContent.start)="onAnimationStart($event)"
+     (@slideContent.done)="onAnimationDone($event)">
+
+  <div class="spinner-wrapper">
+    <mat-spinner></mat-spinner>
+  </div>
+</div>

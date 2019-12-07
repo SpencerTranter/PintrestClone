@@ -1,19 +1,31 @@
 <mat-toolbar>
-  <button mat-icon-button>
-    <mat-icon svgIcon="pinterest" color=""></mat-icon>
-  </button>
+  <div class="left">
+    <button mat-icon-button (click)="navigate('')">
+      <mat-icon svgIcon="pinterest" color=""></mat-icon>
+    </button>
+    <button mat-button class="header-text" *ngIf="auth.user$ | async">
+      <span>Upload</span>
+      <input
+        id="uploadBtn"
+        type="file"
+        class="upload"
+        (change)="image.uploadFile($event.target.files)"
+      />
+    </button>
+  </div>
+
   <div class="right">
     <button mat-button class="header-text" (click)="navigate('')">
       <span>Home</span>
     </button>
-    <button mat-button class="avatar-button" *ngIf="isAuthenticated()" (click)="navigate('/profile')">
-      <img src="{{this.user['avatar_url']}}">
-      <span class='header-text username'>{{getUserFirstName()}}</span>
+    <button mat-button class="avatar-button" *ngIf="auth.user$ | async as user" (click)="navigate('/profile')">
+      <img src="{{user.photoURL}}">
+      <span class='header-text username'>{{getUserFirstName(user.displayName)}}</span>
     </button>
     <div class="spacer"></div>
     <button mat-button>
-      <span class='header-text menu' (click)="signIn()" *ngIf="!isAuthenticated()">Sign In</span>
-      <span class='header-text menu' (click)="signOut()" *ngIf="isAuthenticated()">Sign Out</span>
+      <span class='header-text menu' (click)="signIn()" *ngIf="!(auth.user$ | async)">Sign In</span>
+      <span class='header-text menu' (click)="signOut()" *ngIf="auth.user$ | async">Sign Out</span>
     </button>
   </div>
 </mat-toolbar>

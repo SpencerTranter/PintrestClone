@@ -1,6 +1,7 @@
 import { Component, Input, OnInit, Renderer2, ViewChild } from '@angular/core';
 import { OverlayService } from '../../../services/overlay.service';
 import { IMAGE_DATA } from '../../overlay/file-preview-overlay/file-preview-overlay.tokens';
+import { FilePreviewOverlayComponent } from '../../overlay/file-preview-overlay/file-preview-overlay.component';
 
 @Component({
   selector: 'app-infinite-item',
@@ -31,7 +32,7 @@ export class InfiniteItemComponent implements OnInit {
 
   private openOverlay(event: any) {
     const overlayConfig = this.createOverlayConfig();
-    this.overlayService.open(overlayConfig, IMAGE_DATA);
+    this.overlayService.open(overlayConfig, IMAGE_DATA, FilePreviewOverlayComponent);
     this.renderer.removeClass(event.target, 'menu');
   }
 
@@ -54,9 +55,9 @@ export class InfiniteItemComponent implements OnInit {
     // What if width > 500?
     if (height > 600) {
       const ratio = 600 / height;
-      return { width: width * ratio, height: 600 };
+      return { width: width * ratio, height: 650 };
     }
-    return { width, height };
+    return { width, height: height + 50 };
   }
 
 }

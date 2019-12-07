@@ -25,7 +25,7 @@ export function reducer(state: UserState = initialState, action: UserActions): U
     case UserTypes.ADD_USER_IMAGE:
       return Object.assign({}, state, { images: [...state.images, action.payload] });
     case UserTypes.DELETE_USER_IMAGE:
-      const newImages = state.images.filter(image => image.id === action.payload.id);
+      const newImages = state.images.filter(image => image.id !== action.payload.id);
       return Object.assign({}, state, { images: newImages });
     default:
       return state;

@@ -10,14 +10,15 @@ import * as fromUser from '../store/reducers/user.reducer';
 })
 export class ProfileComponent implements OnInit {
   images = [];
+
   constructor(
     private store: Store<fromUser.UserState>,
-  ) { }
-
-  ngOnInit() {
+  ) {
     this.store.select(getUserImages).subscribe((images) => {
       this.images = images;
     });
   }
+
+  ngOnInit() {}
 
 }

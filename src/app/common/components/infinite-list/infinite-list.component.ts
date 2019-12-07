@@ -20,10 +20,8 @@ export class InfiniteListComponent implements OnInit {
     };
 
     this.observer = new IntersectionObserver((entries, self) => {
-      console.log('observing');
       entries.forEach(entry => {
         if (entry.isIntersecting) {
-          console.log('intersecting');
           this.preloadImage(entry.target);
           self.unobserve(entry.target);
         }

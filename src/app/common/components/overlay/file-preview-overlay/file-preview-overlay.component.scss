@@ -3,29 +3,46 @@
   font-size: 0;
 }
 
-img {
-  border-radius: 16px 16px 0 0;
-  max-height: 600px;
-  margin: 0;
-}
-
-div {
-  background-color: rgba(black, 0.7);
-  margin: 0;
-  height: 50px;
-  border-radius: 0 0 16px 16px;
+.overlay-content {
+  height: 100%;
+  width: 100%;
   display: flex;
-  justify-content: space-around;
-  align-items: center;
+  flex-direction: column;
 
-  button[mat-button] {
-    border-radius: 20px;
-    background: #D42D30;
+  img {
+    border-radius: 16px 16px 0 0;
+    max-height: 600px;
+    margin: 0;
+  }
 
-    span {
-      color: white;
-      font-weight: 700;
-      font-size: 16px;
+  .button-wrapper {
+    background-color: rgba(black, 0.7);
+    margin: 0;
+    height: 50px;
+    border-radius: 0 0 16px 16px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+
+    button[mat-button] {
+      border-radius: 20px;
+      background: #D42D30;
+
+      span {
+        color: white;
+        font-weight: 700;
+        font-size: 16px;
+      }
     }
   }
+
 }
+
+.spinner-wrapper {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: -1;
+}
+

@@ -1,7 +1,6 @@
 import {ComponentRef, Injectable, InjectionToken, Injector} from '@angular/core';
-import { FilePreviewOverlayComponent } from '../components/overlay/file-preview-overlay/file-preview-overlay.component';
 import { CustomOverlayRef } from '../components/overlay/custom-overlay-ref';
-import {Overlay, OverlayConfig, OverlayRef} from '@angular/cdk/overlay';
+import {ComponentType, Overlay, OverlayConfig, OverlayRef} from '@angular/cdk/overlay';
 import {ComponentPortal, PortalInjector} from '@angular/cdk/portal';
 
 interface CustomOverlayConfig {
@@ -26,7 +25,12 @@ export class OverlayService {
     private injector: Injector
   ) { }
 
-  open(config: CustomOverlayConfig = {}, token: InjectionToken<{}>) {
+  open(
+    config: CustomOverlayConfig = {},
+    token: InjectionToken<{}>,
+    component: ComponentType<any>,
+    backdropClose: boolean = true
+  ) {
     // Override default configuration
     const dialogConfig = { ...DEFAULT_CONFIG, ...config };
 
@@ -35,9 +39,14 @@ export class OverlayService {
 
     // Instantiate remote control
     const dialogRef = new CustomOverlayRef(overlayRef);
-    const overlayComponent = this.attachDialogContainer(overlayRef, dialogConfig, dialogRef, token);
+    const overlayComponent = this.attachDialogContainer(overlayRef, dialogConfig, dialogRef, token, component);
 
-    overlayRef.backdropClick().subscribe(_ => dialogRef.close());
+    // Pass the instance of the overlay component to the remote control
+    dialogRef.componentInstance = overlayComponent;
+
+    if (backdropClose) {
+      overlayRef.backdropClick().subscribe(_ => dialogRef.close());
+    }
     return dialogRef;
   }
 
@@ -64,12 +73,13 @@ export class OverlayService {
     overlayRef: OverlayRef,
     config: CustomOverlayConfig,
     dialogRef: CustomOverlayRef,
-    token: InjectionToken<{}>
+    token: InjectionToken<{}>,
+    component: ComponentType<any>
   ) {
     const injector = this.createInjector(config, dialogRef, token);
 
-    const containerPortal = new ComponentPortal(FilePreviewOverlayComponent, null, injector);
-    const containerRef: ComponentRef<FilePreviewOverlayComponent> = overlayRef.attach(containerPortal); // switch for other components
+    const containerPortal = new ComponentPortal(component, null, injector);
+    const containerRef: ComponentRef<any> = overlayRef.attach(containerPortal); // switch for other components
 
     return containerRef.instance;
   }

@@ -5,91 +5,66 @@ import {GetToken, GetUserSuccess} from '../../store/actions/user.action';
 import {Store} from '@ngrx/store';
 import * as fromUser from '../../store/reducers/user.reducer';
 import {getIsLoggedIn} from '../../store/selectors/user.selectors';
+import { auth } from 'firebase/app';
+import { AngularFireAuth } from '@angular/fire/auth';
+import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
+import {switchMap} from 'rxjs/operators';
+import {Observable, of} from 'rxjs';
+import { User } from '../../store/models/user.models';
+import { selectUser} from '../../store/selectors/user.selectors';
+
 
 @Injectable({
   providedIn: 'root'
 })
 
 export class AuthenticationService {
-
-  _isLoggedIn = false;
+  user$: Observable<User>;
 
   constructor(
     private http: HttpClient,
     private router: Router,
     private activatedRoute: ActivatedRoute,
-    private store: Store<fromUser.UserState>
+    private store: Store<fromUser.UserState>,
+    private afAuth: AngularFireAuth,
+    private afs: AngularFirestore
   ) {
-    this.activatedRoute.queryParams.subscribe(params => {
-      if (!!params['code']) {
-        this.store.dispatch(new GetToken(params['code']));
-        this.removeCode();
-      }
-    });
-    this.store.select(getIsLoggedIn).subscribe((isLoggedIn) => {
-      this._isLoggedIn = isLoggedIn;
-    });
-  }
-
-  public authenticate() {
-    window.location.href = 'https://github.com/login/oauth/authorize?client_id=62d8e36013e28241eb89';
-  }
-
-  getAccessToken(code) {
-    return this.http.post(
-      '/git/login/oauth/access_token',
-      {
-        client_id: '62d8e36013e28241eb89',
-        client_secret: '3ec53fcceaaeb6c3be162faf72c5c0da20a7d327',
-        code: code
-      },
-      {
-        responseType: 'text',
-        headers: {
-          'Content-Type': 'application/json',
-          'Accept': 'application/json, text/javascript, */*',
-        },
-      }
+    this.user$ = this.afAuth.authState.pipe(
+      switchMap(user => {
+        // Logged in
+        if (user) {
+          return this.afs.doc<User>(`Users/${user.uid}`).valueChanges();
+        } else {
+          // Logged out
+          return of(null);
+        }
+      })
     );
   }
 
-  getUserInformation(token) {
-    return this.http.get(
-      '/api/user',
-      {
-        headers: {
-          'Content-Type': 'application/json',
-          'Accept': 'application/json, text/javascript, */*',
-          Authorization: `token ${token}`
-        },
-    });
+  async githubSignin() {
+    const provider = new auth.GithubAuthProvider();
+    const credential = await this.afAuth.auth.signInWithPopup(provider);
+    return this.updateUserData(credential.user);
   }
 
-  validateToken(res: string) {
-    const RGX = new RegExp('access_token=([a-z 0-9]*)&scope');
-    const tokenMatch = res.match(RGX);
-    if (!tokenMatch) {
-      return false;
-    }
-    return tokenMatch[1];
+  private updateUserData(user) {
+    console.log(user);
+    // Sets user data to firestore on login
+    const userRef: AngularFirestoreDocument<User> = this.afs.doc(`Users/${user.uid}`);
+
+    const data = {
+      uid: user.uid,
+      email: user.email,
+      displayName: user.displayName,
+      photoURL: user.photoURL
+    };
+
+    return userRef.set(data, { merge: true });
   }
 
-  removeCode() {
-    return this.router.navigate(
-      [],
-      {
-        relativeTo: this.activatedRoute,
-        queryParams: { code: '' },
-        queryParamsHandling: 'merge',
-    });
-  }
-
-  public signOut() {
-    this.store.dispatch(new GetUserSuccess(null));
+  async signOut() {
+    await this.afAuth.auth.signOut();
     this.router.navigate(['/home']);
-  }
-
-  public isLoggedIn() {
-    return this._isLoggedIn;
   }
 }

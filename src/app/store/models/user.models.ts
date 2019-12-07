@@ -1,6 +1,6 @@
-export class UserModel {
-  name: string;
-  avatar_url: string;
+export interface User {
+  uid: string;
   email: string;
-  id: string;
+  displayName: string;
+  photoURL: string;
 }

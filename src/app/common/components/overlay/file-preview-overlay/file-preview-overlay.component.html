@@ -1,9 +1,47 @@
-<img src="{{image.src}}">
-<div>
-  <button mat-button class="save-button" (click)="saveImage()">
-    <span>Save</span>
-  </button>
-  <button mat-button class="copy-button" (click)="copyImage()">
-    <span>Copy</span>
-  </button>
+<div class="overlay-content"
+     [@slideContent]="animationState"
+     (@slideContent.start)="onAnimationStart($event)"
+     (@slideContent.done)="onAnimationDone($event)">
+
+  <div class="spinner-wrapper" *ngIf="loading">
+    <mat-spinner></mat-spinner>
+  </div>
+
+  <div class="img-wrapper" [@fade]="loading ? 'fadeOut' : 'fadeIn'">
+    <img src="{{image.src}}" (load)="onLoad($event)">
+    <div class="button-wrapper">
+      <button
+      *ngIf="!(auth.user$ | async)"
+      mat-button
+      class="save-button"
+      (click)="login()">
+        <span>Sign In</span>
+      </button>
+
+      <div class="pin-buttons" *ngIf="auth.user$ | async">
+        <button
+        *ngIf="canSave()"
+        mat-button
+        class="save-button"
+        (click)="saveUserImage()">
+          <span>Pin Image</span>
+        </button>
+
+        <button
+        *ngIf="!canSave()"
+        mat-button
+        class="remove-button"
+        (click)="removeUserImage()">
+          <span>Remove Pin</span>
+        </button>
+      </div>
+
+      <button
+      mat-button
+      class="copy-button"
+      (click)="copyImage()">
+        <span>Copy</span>
+      </button>
+    </div>
+  </div>
 </div>

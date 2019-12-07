@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import {AuthenticationService} from '../../services/authentication.service';
-import { selectUser } from '../../../store/selectors/user.selectors';
 import * as fromUser from '../../../store/reducers/user.reducer';
 import {Router} from '@angular/router';
+import {ImageService} from '../../services/image.service';
 
 @Component({
   selector: 'app-pin-header',
@@ -14,15 +14,13 @@ export class PinHeaderComponent implements OnInit {
   user: any;
 
   constructor(
-    private authService: AuthenticationService,
+    private auth: AuthenticationService,
     private store: Store<fromUser.UserState>,
-    private router: Router
+    private router: Router,
+    private image: ImageService,
   ) {}
 
   ngOnInit() {
-    this.store.select(selectUser).subscribe((user) => {
-      this.user = user;
-    });
   }
 
   navigate(path) {
@@ -30,19 +28,15 @@ export class PinHeaderComponent implements OnInit {
   }
 
   signIn() {
-    return this.authService.authenticate();
+    return this.auth.githubSignin();
   }
 
   signOut() {
-    return this.authService.signOut();
+    return this.auth.signOut();
   }
 
-  isAuthenticated() {
-    return this.user !== null;
-  }
-
-  getUserFirstName() {
-    return this.user.name.split(' ')[0];
+  getUserFirstName(name) {
+    return name.split(' ')[0];
   }
 
 }
